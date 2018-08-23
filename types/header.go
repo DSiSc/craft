@@ -6,6 +6,7 @@ package types
 import (
 	"bytes"
 	"crypto/sha256"
+	"errors"
 	"github.com/DSiSc/craft/serialize"
 	"io"
 )
@@ -56,4 +57,22 @@ func (h *Header) Hash() Hash {
 
 	h.hash = &hash
 	return hash
+}
+
+//Serialize the blockheader
+func (h *Header) Serialize(w io.Writer) error {
+	h.SerializeUnsigned(w)
+	err := serialize.WriteVarUint(w, uint64(len(h.SigData)))
+	if err != nil {
+		return errors.New("serialize sig pubkey length failed")
+	}
+
+	for _, sig := range h.SigData {
+		err = serialize.WriteVarBytes(w, sig)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

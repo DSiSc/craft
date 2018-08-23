@@ -24,3 +24,11 @@ func (h *Hash) Serialize(w io.Writer) error {
 	_, err := w.Write(h[:])
 	return err
 }
+
+func (h *Hash) ToArray() []byte {
+	x := make([]byte, HashLength)
+	for i := 0; i < HashLength; i++ {
+		x[i] = byte(h[i])
+	}
+	return x
+}
