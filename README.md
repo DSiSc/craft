@@ -1,2 +1,2 @@
 # common
-Define common types and structures which used frequently 
+Define types with serializable and deserialize operations.
