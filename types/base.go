@@ -140,3 +140,11 @@ func Encode(b []byte) string {
 func (a Address) Hex() string {
 	return Encode(a[:])
 }
+
+func (h *Hash) ToArray() []byte {
+	x := make([]byte, HashLength)
+	for i := 0; i < HashLength; i++ {
+		x[i] = byte(h[i])
+	}
+	return x
+}
