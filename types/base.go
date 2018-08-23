@@ -1,7 +1,8 @@
 /*
-*  bus
+*  Define foundation of other types
  */
-package common
+
+package types
 
 // Lengths of hashes and addresses in bytes.
 const (
