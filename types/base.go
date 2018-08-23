@@ -4,6 +4,10 @@
 
 package types
 
+import (
+	"io"
+)
+
 // Lengths of hashes and addresses in bytes.
 const (
 	HashLength    = 32
@@ -15,3 +19,8 @@ type Address [AddressLength]byte
 
 // Hash represents the 32 byte Keccak256 hash of arbitrary data.
 type Hash [HashLength]byte
+
+func (h *Hash) Serialize(w io.Writer) error {
+	_, err := w.Write(h[:])
+	return err
+}
