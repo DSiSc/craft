@@ -1,6 +1,11 @@
 package types
 
 import (
+	"bytes"
+	"crypto/sha256"
+	"errors"
+	"github.com/DSiSc/craft/serialize"
+	"io"
 	"math/big"
 	"sync/atomic"
 )
@@ -27,4 +32,29 @@ type txdata struct {
 
 	// This is only used when marshaling to JSON.
 	Hash *Hash `json:"hash" rlp:"-"`
+}
+
+func (tx *Transaction) Hash() Hash {
+	if hash := tx.hash.Load(); hash != nil {
+		return hash.(Hash)
+	}
+	buf := bytes.Buffer{}
+	tx.SerializeUnsigned(&buf)
+	temp := sha256.Sum256(buf.Bytes())
+	f := Hash(sha256.Sum256(temp[:]))
+	tx.hash.Store(f)
+	return f
+}
+
+//Serialize the Transaction data without contracts
+func (tx *Transaction) SerializeUnsigned(w io.Writer) error {
+	//txType
+	if err := serialize.WriteUint64(w, tx.data.AccountNonce); err != nil {
+		return errors.New("[SerializeUnsigned], Transaction nonce failed.")
+	}
+	if err := serialize.WriteUint64(w, tx.data.GasLimit); err != nil {
+		return errors.New("[SerializeUnsigned], Transaction nonce failed.")
+	}
+
+	return nil
 }
