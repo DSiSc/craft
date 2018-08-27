@@ -20,6 +20,9 @@ const (
 // formatting.
 type StorageSize float64
 
+// Type to mark uniqueness of a node
+type NodeAddress string
+
 // Address represents the 20 byte address of an Ethereum account.
 type Address [AddressLength]byte
 
