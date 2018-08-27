@@ -13,15 +13,15 @@ import (
 
 // Header represents a block header in the Ethereum blockchain.
 type Header struct {
-	PrevBlockHash Hash     // preblock hash
-	StateRoot     Hash     // statedb root
-	TxRoot        Hash     // transactions root
-	ReceipsRoot   Hash     // receipt root
-	Height        uint32   // block height
-	Timestamp     uint32   // timestamp
-	MixDigest     Hash     // digest
-	SigData       [][]byte // signatures
-	hash          *Hash    // header hash
+	PrevBlockHash Hash     `json:"prevHash"    gencodec:"required"`    // preblock hash
+	StateRoot     Hash     `json:"stateRoot"    gencodec:"required"`   // statedb root
+	TxRoot        Hash     `json:"txRoot"    gencodec:"required"`      // transactions root
+	ReceipsRoot   Hash     `json:"receipsRoot"    gencodec:"required"` // receipt root
+	Height        uint64   `json:"height"    gencodec:"required"`      // block height
+	Timestamp     uint64   `json:"timestamp"    gencodec:"required"`   // timestamp
+	MixDigest     Hash     `json:"mixDigest"    gencodec:"required"`   // digest
+	SigData       [][]byte `json:"sigData"    gencodec:"required"`     // signatures
+	hash          *Hash    `json:"hash"    gencodec:"required"`        // header hash
 }
 
 //Serialize the blockheader data without program
@@ -34,11 +34,11 @@ func (h *Header) SerializeUnsigned(w io.Writer) error {
 	if err != nil {
 		return err
 	}
-	err = serialize.WriteUint32(w, h.Timestamp)
+	err = serialize.WriteUint64(w, h.Timestamp)
 	if err != nil {
 		return err
 	}
-	err = serialize.WriteUint32(w, h.Height)
+	err = serialize.WriteUint64(w, h.Height)
 	if err != nil {
 		return err
 	}
