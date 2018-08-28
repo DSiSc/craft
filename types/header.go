@@ -16,12 +16,12 @@ type Header struct {
 	PrevBlockHash Hash     `json:"prevHash"    gencodec:"required"`    // preblock hash
 	StateRoot     Hash     `json:"stateRoot"    gencodec:"required"`   // statedb root
 	TxRoot        Hash     `json:"txRoot"    gencodec:"required"`      // transactions root
-	ReceipsRoot   Hash     `json:"receipsRoot"    gencodec:"required"` // receipt root
+	ReceiptsRoot  Hash     `json:"receipsRoot"    gencodec:"required"` // receipt root
 	Height        uint64   `json:"height"    gencodec:"required"`      // block height
 	Timestamp     uint64   `json:"timestamp"    gencodec:"required"`   // timestamp
 	MixDigest     Hash     `json:"mixDigest"    gencodec:"required"`   // digest
 	SigData       [][]byte `json:"sigData"    gencodec:"required"`     // signatures
-	hash          *Hash    `json:"hash"    gencodec:"required"`        // header hash
+	BlockHash          *Hash    `json:"blockHash"    gencodec:"required"`        // header hash
 }
 
 //Serialize the blockheader data without program
@@ -47,15 +47,15 @@ func (h *Header) SerializeUnsigned(w io.Writer) error {
 }
 
 func (h *Header) Hash() Hash {
-	if h.hash != nil {
-		return *h.hash
+	if h.BlockHash != nil {
+		return *h.BlockHash
 	}
 	buf := new(bytes.Buffer)
 	h.SerializeUnsigned(buf)
 	temp := sha256.Sum256(buf.Bytes())
 	hash := Hash(sha256.Sum256(temp[:]))
 
-	h.hash = &hash
+	h.BlockHash = &hash
 	return hash
 }
 
