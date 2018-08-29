@@ -59,6 +59,36 @@ func (tx *Transaction) SerializeUnsigned(w io.Writer) error {
 	return nil
 }
 
+// Message is a fully derived transaction and implements core.Message
+//
+// NOTE: In a future PR this will be removed.
+type Message struct {
+	to         *Address
+	from       Address
+	nonce      uint64
+	amount     *big.Int
+	gasLimit   uint64
+	gasPrice   *big.Int
+	data       []byte
+	checkNonce bool
+}
+
+func (tx *Transaction) AsMessage(s Signer) (Message, error) {
+	msg := Message{
+		nonce:      tx.data.AccountNonce,
+		gasLimit:   tx.data.GasLimit,
+		gasPrice:   new(big.Int).Set(tx.data.Price),
+		to:         tx.data.Recipient,
+		amount:     tx.data.Amount,
+		data:       tx.data.Payload,
+		checkNonce: true,
+	}
+
+	var err error
+	msg.from, err = Sender(s, tx)
+	return msg, err
+}
+
 func CopyBytes(b []byte) (copiedBytes []byte) {
 	if b == nil {
 		return nil
