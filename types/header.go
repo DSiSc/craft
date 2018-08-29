@@ -21,7 +21,7 @@ type Header struct {
 	Timestamp     uint64   `json:"timestamp"    gencodec:"required"`   // timestamp
 	MixDigest     Hash     `json:"mixDigest"    gencodec:"required"`   // digest
 	SigData       [][]byte `json:"sigData"    gencodec:"required"`     // signatures
-	BlockHash          *Hash    `json:"blockHash"    gencodec:"required"`        // header hash
+	BlockHash     *Hash    `json:"blockHash"    gencodec:"required"`   // header hash
 }
 
 //Serialize the blockheader data without program
