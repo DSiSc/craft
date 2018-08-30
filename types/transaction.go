@@ -34,12 +34,12 @@ type txdata struct {
 	Hash *Hash `json:"hash" rlp:"-"`
 }
 
-func (t Transaction) AccountNonce() uint64 { return t.data.AccountNonce }
-func (t Transaction) Price() *big.Int      { return t.data.Price }
-func (t Transaction) GasLimit() uint64     { return t.data.GasLimit }
-func (t Transaction) Recipient() *Address  { return t.data.Recipient }
-func (t Transaction) Amount() *big.Int     { return t.data.Amount }
-func (t Transaction) Payload() []byte      { return t.data.Payload }
+func (tx *Transaction) Data() []byte       { return CopyBytes(tx.data.Payload) }
+func (tx *Transaction) Gas() uint64        { return tx.data.GasLimit }
+func (tx *Transaction) GasPrice() *big.Int { return new(big.Int).Set(tx.data.Price) }
+func (tx *Transaction) Value() *big.Int    { return new(big.Int).Set(tx.data.Amount) }
+func (tx *Transaction) Nonce() uint64      { return tx.data.AccountNonce }
+func (tx *Transaction) CheckNonce() bool   { return true }
 
 func (tx *Transaction) Hash() Hash {
 	if hash := tx.hash.Load(); hash != nil {
