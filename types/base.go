@@ -16,6 +16,14 @@ const (
 	AddressLength = 20
 )
 
+const (
+	// BloomByteLength represents the number of bytes used in a header log bloom.
+	BloomByteLength = 256
+
+	// BloomBitLength represents the number of bits used in a header log bloom.
+	BloomBitLength = 8 * BloomByteLength
+)
+
 // StorageSize is a wrapper around a float value that supports user friendly
 // formatting.
 type StorageSize float64
@@ -28,6 +36,9 @@ type Address [AddressLength]byte
 
 // Hash represents the 32 byte Keccak256 hash of arbitrary data.
 type Hash [HashLength]byte
+
+// Bloom represents a 2048 bit bloom filter.
+type Bloom [BloomByteLength]byte
 
 func (h *Hash) Serialize(w io.Writer) error {
 	_, err := w.Write(h[:])
