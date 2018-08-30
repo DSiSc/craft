@@ -8,8 +8,10 @@ import (
 func Test_Sign(t *testing.T) {
 	assert := assert.New(t)
 	signature, err := Sign(nil, nil)
-	assert.Nil(signature)
+	assert.NotNil(signature)
 	assert.Nil(err)
+	var sign []byte = []byte("solo_node")
+	assert.Equal(sign, signature, "They should be equal")
 }
 
 func Test_Verify(t *testing.T) {

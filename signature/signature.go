@@ -10,7 +10,9 @@ type Signature struct {
 }
 
 func Sign(signer Signer, data []byte) ([]byte, error) {
-	return nil, nil
+	// TODO: adding key, we use node id to instand
+	var sign []byte = []byte("solo_node")
+	return sign, nil
 }
 
 // Verify check the signature of data using pubKey
