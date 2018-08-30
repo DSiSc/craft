@@ -131,11 +131,27 @@ func NewMessage(from Address, to *Address, nonce uint64, amount *big.Int, gasLim
 	}
 }
 
-func (m Message) From() Address { return m.from }
-func (m Message) To() *Address  { return m.to }
-func (m Message) GasPrice() *big.Int  { return m.gasPrice }
-func (m Message) Value() *big.Int     { return m.amount }
-func (m Message) Gas() uint64         { return m.gasLimit }
-func (m Message) Nonce() uint64       { return m.nonce }
-func (m Message) Data() []byte        { return m.data }
-func (m Message) CheckNonce() bool    { return m.checkNonce }
+func (m Message) From() Address      { return m.from }
+func (m Message) To() *Address       { return m.to }
+func (m Message) GasPrice() *big.Int { return m.gasPrice }
+func (m Message) Value() *big.Int    { return m.amount }
+func (m Message) Gas() uint64        { return m.gasLimit }
+func (m Message) Nonce() uint64      { return m.nonce }
+func (m Message) Data() []byte       { return m.data }
+func (m Message) CheckNonce() bool   { return m.checkNonce }
+
+func (tx *Transaction) AsMessage(s Signer) (Message, error) {
+	msg := Message{
+		nonce:      tx.data.AccountNonce,
+		gasLimit:   tx.data.GasLimit,
+		gasPrice:   new(big.Int).Set(tx.data.Price),
+		to:         tx.data.Recipient,
+		amount:     tx.data.Amount,
+		data:       tx.data.Payload,
+		checkNonce: true,
+	}
+
+	var err error
+	msg.from, err = Sender(s, tx)
+	return msg, err
+}
