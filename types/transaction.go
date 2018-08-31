@@ -6,13 +6,13 @@ import (
 )
 
 type Transaction struct {
-	data txdata
-	hash atomic.Value
-	size atomic.Value
-	from atomic.Value
+	Data TxData
+	Hash atomic.Value
+	Size atomic.Value
+	From atomic.Value
 }
 
-type txdata struct {
+type TxData struct {
 	AccountNonce uint64   `json:"nonce"    gencodec:"required"`
 	Price        *big.Int `json:"gasPrice" gencodec:"required"`
 	GasLimit     uint64   `json:"gas"      gencodec:"required"`
