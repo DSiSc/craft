@@ -17,6 +17,7 @@ type TxData struct {
 	Price        *big.Int `json:"gasPrice" gencodec:"required"`
 	GasLimit     uint64   `json:"gas"      gencodec:"required"`
 	Recipient    *Address `json:"to"       rlp:"nil"`
+	From         *Address `json:"from"     rlp:"nil"`
 	Amount       *big.Int `json:"value"    gencodec:"required"`
 	Payload      []byte   `json:"input"    gencodec:"required"`
 
