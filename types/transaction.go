@@ -155,12 +155,3 @@ func (tx *Transaction) AsMessage(s Signer) (Message, error) {
 	msg.from, err = Sender(s, tx)
 	return msg, err
 }
-
-func GetTxsRoot(txs []*Transaction) Hash {
-	txHash := make([]Hash, 0, len(txs))
-	for _, t := range txs {
-		txHash = append(txHash, t.Hash())
-	}
-	txRoot := ComputeMerkleRoot(txHash)
-	return txRoot
-}
