@@ -15,4 +15,5 @@ type Header struct {
 	MixDigest     Hash     `json:"mixDigest"    gencodec:"required"`   // digest
 	SigData       [][]byte `json:"sigData"    gencodec:"required"`     // signatures
 	BlockHash     Hash     `json:"blockHash"    gencodec:"required"`   // block hash
+	Coinbase      Address  `json:"coinbase"    gencodec:"required"`    // coin base
 }
