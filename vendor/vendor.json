@@ -1,6 +1,25 @@
 {
 	"comment": "",
 	"ignore": "test",
-	"package": [],
+	"package": [
+		{
+			"checksumSHA1": "r8GoiWItzY3Z8KrFQq1AFCi2BnQ=",
+			"path": "github.com/rs/zerolog",
+			"revision": "b6f076edc801b110475cbf68da701e2bea52096a",
+			"revisionTime": "2018-08-31T16:46:32Z"
+		},
+		{
+			"checksumSHA1": "73NzoKIiJU6h4v6hg9eM4t7V/zw=",
+			"path": "github.com/rs/zerolog/internal/cbor",
+			"revision": "b6f076edc801b110475cbf68da701e2bea52096a",
+			"revisionTime": "2018-08-31T16:46:32Z"
+		},
+		{
+			"checksumSHA1": "e0b96rsdqg3fNtCDQOdZA4M+MNo=",
+			"path": "github.com/rs/zerolog/internal/json",
+			"revision": "b6f076edc801b110475cbf68da701e2bea52096a",
+			"revisionTime": "2018-08-31T16:46:32Z"
+		}
+	],
 	"rootPath": "github.com/DSiSc/craft"
 }
