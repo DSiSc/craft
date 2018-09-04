@@ -28,6 +28,9 @@ type EventCenter interface {
 
 	// notify subscriber traversing all events
 	NotifyAll() (errs []error)
+
+	// unsubscrible all event
+    UnSubscribeAll()
 }
 
 var GlobalEventCenter EventCenter
