@@ -27,3 +27,5 @@ type EventCenter interface {
 	// notify subscriber traversing all events
 	NotifyAll() (errs []error)
 }
+
+var GlobalEventCenter EventCenter
