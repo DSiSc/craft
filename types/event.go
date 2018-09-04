@@ -4,6 +4,8 @@ type EventType uint8
 
 const (
 	EventBlockCommitted EventType = 0
+	EventBlockCommitFailed
+	EventBlockVerifyFailed
 )
 
 type EventFunc func(v interface{})
