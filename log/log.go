@@ -23,27 +23,27 @@ func Enable() {
 }
 
 func Debug(fmtmsg string, a ...interface{}) {
-	backendLogger.Debug(fmt.Sprintf(fmtmsg, a))
+	backendLogger.Debug(fmt.Sprintf(fmtmsg, a...))
 }
 
 func Info(fmtmsg string, a ...interface{}) {
-	backendLogger.Info(fmt.Sprintf(fmtmsg, a))
+	backendLogger.Info(fmt.Sprintf(fmtmsg, a...))
 }
 
 func Warn(fmtmsg string, a ...interface{}) {
-	backendLogger.Warn(fmt.Sprintf(fmtmsg, a))
+	backendLogger.Warn(fmt.Sprintf(fmtmsg, a...))
 }
 
 func Error(fmtmsg string, a ...interface{}) {
-	backendLogger.Error(fmt.Sprintf(fmtmsg, a))
+	backendLogger.Error(fmt.Sprintf(fmtmsg, a...))
 }
 
 func Fatal(fmtmsg string, a ...interface{}) {
-	backendLogger.Fatal(fmt.Sprintf(fmtmsg, a))
+	backendLogger.Fatal(fmt.Sprintf(fmtmsg, a...))
 }
 
 func Panic(fmtmsg string, a ...interface{}) {
-	backendLogger.Panic(fmt.Sprintf(fmtmsg, a))
+	backendLogger.Panic(fmt.Sprintf(fmtmsg, a...))
 }
 
 func DebugKV(msg string, keyvals map[string]interface{}) {
