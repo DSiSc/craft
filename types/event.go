@@ -3,7 +3,7 @@ package types
 type EventType uint8
 
 const (
-	EventBlockCommitted EventType = 0
+	EventBlockCommitted EventType = iota
 	EventBlockCommitFailed
 	EventBlockVerifyFailed
 )
