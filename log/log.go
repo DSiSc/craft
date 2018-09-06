@@ -1,6 +1,7 @@
 package log
 
 import (
+	"fmt"
 	"io"
 	"os"
 	"strings"
@@ -21,28 +22,28 @@ func Enable() {
 	backendLogger = globalConfig.buildLogger()
 }
 
-func Debug(msg string) {
-	backendLogger.Debug(msg)
+func Debug(fmtmsg string, a ...interface{}) {
+	backendLogger.Debug(fmt.Sprintf(fmtmsg, a))
 }
 
-func Info(msg string) {
-	backendLogger.Info(msg)
+func Info(fmtmsg string, a ...interface{}) {
+	backendLogger.Info(fmt.Sprintf(fmtmsg, a))
 }
 
-func Warn(msg string) {
-	backendLogger.Warn(msg)
+func Warn(fmtmsg string, a ...interface{}) {
+	backendLogger.Warn(fmt.Sprintf(fmtmsg, a))
 }
 
-func Error(msg string) {
-	backendLogger.Error(msg)
+func Error(fmtmsg string, a ...interface{}) {
+	backendLogger.Error(fmt.Sprintf(fmtmsg, a))
 }
 
-func Fatal(msg string) {
-	backendLogger.Fatal(msg)
+func Fatal(fmtmsg string, a ...interface{}) {
+	backendLogger.Fatal(fmt.Sprintf(fmtmsg, a))
 }
 
-func Panic(msg string) {
-	backendLogger.Panic(msg)
+func Panic(fmtmsg string, a ...interface{}) {
+	backendLogger.Panic(fmt.Sprintf(fmtmsg, a))
 }
 
 func DebugKV(msg string, keyvals map[string]interface{}) {
