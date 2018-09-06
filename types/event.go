@@ -30,7 +30,7 @@ type EventCenter interface {
 	NotifyAll() (errs []error)
 
 	// unsubscrible all event
-    UnSubscribeAll()
+	UnSubscribeAll()
 }
 
 var GlobalEventCenter EventCenter
