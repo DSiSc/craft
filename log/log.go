@@ -105,20 +105,26 @@ func SetTimestampFormat(format string) {
 	globalConfig.buildLogger()
 }
 
-// AddAppender adds a new logging destination.
-func AddAppender(output io.Writer, logLevel Level, format string, showCaller bool, showTimestamp bool) {
-	globalConfig.Appenders = append(globalConfig.Appenders, Appender{
-		LogLevel:      logLevel,
-		Output:        output,
-		Format:        format,
-		ShowCaller:    showCaller,
-		ShowTimestamp: showTimestamp,
-	})
+// AddAppender adds/replaces a new logging destination.
+func AddAppender(appenderName string, output io.Writer, logLevel Level, format string, showCaller bool, showHostname bool) {
+	globalConfig.Appenders[appenderName] = Appender{
+		LogLevel:     logLevel,
+		Output:       output,
+		Format:       format,
+		ShowCaller:   showCaller,
+		ShowHostname: showHostname,
+	}
 	backendLogger = globalConfig.buildLogger()
 }
 
-// AddFileAppender adds a new logging destination that append logs to a specified file.
-func AddFileAppender(filePath string, logLevel Level, format string, showCaller bool, showTimestamp bool) {
+// RemoveAppender removes a logging appender by name.
+func RemoveAppender(appenderNameToRemove string) {
+	delete(globalConfig.Appenders, appenderNameToRemove)
+	backendLogger = globalConfig.buildLogger()
+}
+
+// AddFileAppender adds/replaces a new logging destination that append logs to a specified file.
+func AddFileAppender(appenderName string, filePath string, logLevel Level, format string, showCaller bool, showHostname bool) {
 	_, err := os.Stat(filePath)
 
 	if err != nil {
@@ -142,11 +148,11 @@ func AddFileAppender(filePath string, logLevel Level, format string, showCaller 
 	if err != nil {
 		panic(err)
 	}
-	AddAppender(file, logLevel, format, showCaller, showTimestamp)
+	AddAppender(appenderName, file, logLevel, format, showCaller, showHostname)
 }
 
 // SetAppenders sets a set of "Appenders".
-func SetAppenders(appenders []Appender) {
+func SetAppenders(appenders map[string]Appender) {
 	globalConfig.Appenders = appenders
 	backendLogger = globalConfig.buildLogger()
 }

@@ -8,11 +8,11 @@ import (
 
 // Appender is responsible for delivering LogEvents to their destination.
 type Appender struct {
-	LogLevel      Level
-	Output        io.Writer
-	Format        string
-	ShowCaller    bool
-	ShowTimestamp bool
+	LogLevel     Level
+	Output       io.Writer
+	Format       string
+	ShowCaller   bool
+	ShowHostname bool
 }
 
 // OutputFlags are printed in log record that can be customized.
@@ -27,6 +27,8 @@ type OutputFlags struct {
 	ErrorFieldName string
 	// CallerFieldName is the field name used for caller field.
 	CallerFieldName string
+	// HostnameFieldName is the field name used for hostname field.
+	HostnameFieldName string
 }
 
 // Config includes configurations for our log, such as log-level.
@@ -36,17 +38,17 @@ type Config struct {
 	Provider        Provider
 	GlobalLogLevel  Level
 	TimeStampFormat string
-	Appenders       []Appender
+	Appenders       map[string]Appender
 	OutputFlags     *OutputFlags
 }
 
 // stdoutAppender is a pre-configed console log.
 var stdoutAppender = &Appender{
-	LogLevel:      DebugLevel,
-	Output:        os.Stdout,
-	Format:        TextFmt,
-	ShowCaller:    true,
-	ShowTimestamp: true,
+	LogLevel:     DebugLevel,
+	Output:       os.Stdout,
+	Format:       TextFmt,
+	ShowCaller:   true,
+	ShowHostname: true,
 }
 
 // globalOutputFlags contains pre-defined output flags. Usually no need to modify.
@@ -56,6 +58,7 @@ var globalOutputFlags = &OutputFlags{
 	MessageFieldName:   "message",
 	ErrorFieldName:     "error",
 	CallerFieldName:    "caller",
+	HostnameFieldName:  "host",
 }
 
 // globalConfig is a set of default log configuration with only one "stdoutAppender".
@@ -64,7 +67,7 @@ var globalConfig = &Config{
 	Provider:        Zerolog,
 	GlobalLogLevel:  DebugLevel,
 	TimeStampFormat: time.RFC3339,
-	Appenders:       []Appender{*stdoutAppender},
+	Appenders:       map[string]Appender{"stdout": *stdoutAppender},
 	OutputFlags:     globalOutputFlags,
 }
 
