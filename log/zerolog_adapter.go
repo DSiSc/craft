@@ -12,7 +12,7 @@ var _ Logger = (*zeroLogger)(nil)
 // zeroLogger is used as an adapter which contains a set of loggers,
 // each logger corresponds to an "Appender".
 type zeroLogger struct {
-	loggers []*zerolog.Logger
+	loggers map[string]*zerolog.Logger
 }
 
 func (zl *zeroLogger) SetOutputFlags(flags *OutputFlags) {
@@ -108,20 +108,24 @@ func buildZeroLogger(config *Config) Logger {
 
 	zerolog.CallerSkipFrameCount = 4
 
-	zerologger := &zeroLogger{make([]*zerolog.Logger, len(config.Appenders))}
+	zerologger := &zeroLogger{make(map[string]*zerolog.Logger, len(config.Appenders))}
 
 	zerolog.TimeFieldFormat = config.TimeStampFormat
 	zerolog.SetGlobalLevel(parseLogLevel(config.GlobalLogLevel))
 	zerologger.SetOutputFlags(config.OutputFlags)
 
-	for i, a := range config.Appenders {
+	for s, a := range config.Appenders {
 		var logger zerolog.Logger
-		context := zerolog.New(a.Output).Level(parseLogLevel(a.LogLevel)).With()
+		context := zerolog.New(a.Output).Level(parseLogLevel(a.LogLevel)).With().Timestamp()
 		if a.ShowCaller {
 			context = context.Caller()
 		}
-		if a.ShowTimestamp {
-			context = context.Timestamp()
+		if a.ShowHostname {
+			hostname, err := os.Hostname()
+			if err != nil {
+				panic(err)
+			}
+			context = context.Str(globalOutputFlags.HostnameFieldName, hostname)
 		}
 		logger = context.Logger()
 		if a.Format == TextFmt {
@@ -131,7 +135,7 @@ func buildZeroLogger(config *Config) Logger {
 				logger = logger.Output(zerolog.ConsoleWriter{Out: a.Output, NoColor: true}).With().Timestamp().Logger()
 			}
 		}
-		zerologger.loggers[i] = &logger
+		zerologger.loggers[s] = &logger
 	}
 	return zerologger
 }
