@@ -12,10 +12,9 @@ type Header struct {
 	ReceiptsRoot  Hash    `json:"receipsRoot"    gencodec:"required"` // receipt root
 	Height        uint64  `json:"height"    gencodec:"required"`      // block height
 	Timestamp     uint64  `json:"timestamp"    gencodec:"required"`   // timestamp
-	MixDigest     Hash    `json:"mixDigest"    gencodec:"required"`   // digest
 	Coinbase      Address `json:"coinbase"    gencodec:"required"`    // coin base
 
 	// not contain when compute header hash
-	HeaderHash Hash     `json:"headerHash"    gencodec:"required"` // HeaderHash
-	SigData    [][]byte `json:"signData"    gencodec:"required"`   // SigData
+	MixDigest Hash     `json:"mixDigest"    gencodec:"required"` // digest
+	SigData   [][]byte `json:"signData"    gencodec:"required"`  // SigData
 }
