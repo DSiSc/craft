@@ -8,4 +8,5 @@ type Block struct {
 	Transactions []*Transaction
 	HeaderHash   Hash     `json:"headerHash"    gencodec:"required"`
 	SigData      [][]byte `json:"signData"    gencodec:"required"`
+	BlockHash    Hash     `json:"blockHash"    gencodec:"required"`
 }

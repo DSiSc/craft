@@ -14,4 +14,8 @@ type Header struct {
 	Timestamp     uint64  `json:"timestamp"    gencodec:"required"`   // timestamp
 	MixDigest     Hash    `json:"mixDigest"    gencodec:"required"`   // digest
 	Coinbase      Address `json:"coinbase"    gencodec:"required"`    // coin base
+
+	// not contain when compute header hash
+	HeaderHash Hash     `json:"headerHash"    gencodec:"required"` // HeaderHash
+	SigData    [][]byte `json:"signData"    gencodec:"required"`   // SigData
 }
