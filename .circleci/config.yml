@@ -23,9 +23,3 @@ jobs:
       - run:
           name: Correctness check
           command: make build && make vet
-
-      - run:
-          name: Test with coverage
-          command: |
-            make coverage
-            bash <(curl -s https://codecov.io/bash)
