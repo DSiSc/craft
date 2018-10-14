@@ -16,42 +16,56 @@ func init() {
 	// NopConsensusMetrics returns no-op Metrics.
 	// Used by default.
 	JTMetrics = &Metrics{
-		MempoolIngressTx:  discard.NewCounter(),
-		MempoolPooledTx:   discard.NewCounter(),
-		MempoolOutgoingTx: discard.NewCounter(),
-		BlockHeight:       discard.NewGauge(),
-		BlockTxNum:        discard.NewGauge(),
-		CommittedTx:       discard.NewCounter(),
+		TxpoolIngressTx:    discard.NewCounter(),
+		TxpoolPooledTx:     discard.NewCounter(),
+		TxpoolDiscardedTx:  discard.NewCounter(),
+		TxpoolDuplacatedTx: discard.NewCounter(),
+		TxpoolOutgoingTx:   discard.NewCounter(),
+		BlockHeight:        discard.NewGauge(),
+		BlockTxNum:         discard.NewGauge(),
+		CommittedTx:        discard.NewCounter(),
 	}
 }
 
 // PromMetrics contains metrics exposed by Consensus.
 type Metrics struct {
-	MempoolIngressTx  metrics.Counter
-	MempoolPooledTx   metrics.Counter
-	MempoolOutgoingTx metrics.Counter
-	BlockHeight       metrics.Gauge
-	BlockTxNum        metrics.Gauge
-	CommittedTx       metrics.Counter
+	TxpoolIngressTx    metrics.Counter
+	TxpoolPooledTx     metrics.Counter
+	TxpoolDiscardedTx  metrics.Counter
+	TxpoolDuplacatedTx metrics.Counter
+	TxpoolOutgoingTx   metrics.Counter
+	BlockHeight        metrics.Gauge
+	BlockTxNum         metrics.Gauge
+	CommittedTx        metrics.Counter
 }
 
 // createJTMetrics creates Metrics build using Prometheus client library.
 func createMetrics() {
 	JTMetrics = &Metrics{
-		MempoolIngressTx: kitprometheus.NewCounterFrom(prometheus.CounterOpts{
-			Subsystem: "mempool",
+		TxpoolIngressTx: kitprometheus.NewCounterFrom(prometheus.CounterOpts{
+			Subsystem: "txpool",
 			Name:      "ingress_tx",
-			Help:      "Accumulated num of incoming tx mempool.",
+			Help:      "Accumulated num of incoming tx to txpool.",
 		}, []string{}),
-		MempoolPooledTx: kitprometheus.NewCounterFrom(prometheus.CounterOpts{
-			Subsystem: "mempool",
+		TxpoolPooledTx: kitprometheus.NewCounterFrom(prometheus.CounterOpts{
+			Subsystem: "txpool",
 			Name:      "pooled_tx",
-			Help:      "Accumulated num of tx pooled into mempool.",
+			Help:      "Accumulated num of tx pooled into txpool.",
 		}, []string{}),
-		MempoolOutgoingTx: kitprometheus.NewCounterFrom(prometheus.CounterOpts{
-			Subsystem: "mempool",
+		TxpoolDiscardedTx: kitprometheus.NewCounterFrom(prometheus.CounterOpts{
+			Subsystem: "txpool",
+			Name:      "discarded_tx",
+			Help:      "Accumulated num of discarded tx because txpool is full.",
+		}, []string{}),
+		TxpoolDuplacatedTx: kitprometheus.NewCounterFrom(prometheus.CounterOpts{
+			Subsystem: "txpool",
+			Name:      "duplicated_tx",
+			Help:      "Accumulated num of duplicated tx.",
+		}, []string{}),
+		TxpoolOutgoingTx: kitprometheus.NewCounterFrom(prometheus.CounterOpts{
+			Subsystem: "txpool",
 			Name:      "outgoing_tx",
-			Help:      "Accumulated num of tx out from mempool.",
+			Help:      "Accumulated num of tx out from txpool.",
 		}, []string{}),
 		BlockHeight: kitprometheus.NewGaugeFrom(prometheus.GaugeOpts{
 			Subsystem: "store",
@@ -61,7 +75,7 @@ func createMetrics() {
 		BlockTxNum: kitprometheus.NewGaugeFrom(prometheus.GaugeOpts{
 			Subsystem: "store",
 			Name:      "block_tx_num",
-			Help:      "Num of tx contained in recent block.",
+			Help:      "Num of tx contained in latest block.",
 		}, []string{}),
 		CommittedTx: kitprometheus.NewCounterFrom(prometheus.CounterOpts{
 			Subsystem: "store",
