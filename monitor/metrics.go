@@ -16,36 +16,57 @@ func init() {
 	// NopConsensusMetrics returns no-op Metrics.
 	// Used by default.
 	JTMetrics = &Metrics{
-		Height:  discard.NewGauge(),
-		NumTx:   discard.NewGauge(),
-		TotalTx: discard.NewCounter(),
+		MempoolIngressTx:  discard.NewCounter(),
+		MempoolPooledTx:   discard.NewCounter(),
+		MempoolOutgoingTx: discard.NewCounter(),
+		BlockHeight:       discard.NewGauge(),
+		BlockTxNum:        discard.NewGauge(),
+		CommittedTx:       discard.NewCounter(),
 	}
 }
 
 // PromMetrics contains metrics exposed by Consensus.
 type Metrics struct {
-	Height  metrics.Gauge
-	NumTx   metrics.Gauge
-	TotalTx metrics.Counter
+	MempoolIngressTx  metrics.Counter
+	MempoolPooledTx   metrics.Counter
+	MempoolOutgoingTx metrics.Counter
+	BlockHeight       metrics.Gauge
+	BlockTxNum        metrics.Gauge
+	CommittedTx       metrics.Counter
 }
 
 // createJTMetrics creates Metrics build using Prometheus client library.
 func createMetrics() {
 	JTMetrics = &Metrics{
-		Height: kitprometheus.NewGaugeFrom(prometheus.GaugeOpts{
+		MempoolIngressTx: kitprometheus.NewCounterFrom(prometheus.CounterOpts{
+			Subsystem: "mempool",
+			Name:      "ingress_tx",
+			Help:      "Accumulated num of incoming tx mempool.",
+		}, []string{}),
+		MempoolPooledTx: kitprometheus.NewCounterFrom(prometheus.CounterOpts{
+			Subsystem: "mempool",
+			Name:      "pooled_tx",
+			Help:      "Accumulated num of tx pooled into mempool.",
+		}, []string{}),
+		MempoolOutgoingTx: kitprometheus.NewCounterFrom(prometheus.CounterOpts{
+			Subsystem: "mempool",
+			Name:      "outgoing_tx",
+			Help:      "Accumulated num of tx out from mempool.",
+		}, []string{}),
+		BlockHeight: kitprometheus.NewGaugeFrom(prometheus.GaugeOpts{
 			Subsystem: "store",
 			Name:      "height",
 			Help:      "Height of blocks.",
 		}, []string{}),
-		NumTx: kitprometheus.NewGaugeFrom(prometheus.GaugeOpts{
+		BlockTxNum: kitprometheus.NewGaugeFrom(prometheus.GaugeOpts{
 			Subsystem: "store",
 			Name:      "block_tx_num",
-			Help:      "Num of tx in current block.",
+			Help:      "Num of tx contained in recent block.",
 		}, []string{}),
-		TotalTx: kitprometheus.NewCounterFrom(prometheus.CounterOpts{
+		CommittedTx: kitprometheus.NewCounterFrom(prometheus.CounterOpts{
 			Subsystem: "store",
 			Name:      "total_tx_num",
-			Help:      "Total num of tx.",
+			Help:      "Accumulated num of committed tx.",
 		}, []string{}),
 	}
 }
