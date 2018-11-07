@@ -7,6 +7,15 @@ import (
 )
 
 // Appender is responsible for delivering LogEvents to their destination.
+type AppenderConfig struct {
+	LogLevel     Level
+	Output       string
+	Format       string
+	ShowCaller   bool
+	ShowHostname bool
+}
+
+// Appender is responsible for delivering LogEvents to their destination.
 type Appender struct {
 	LogLevel     Level
 	Output       io.Writer
