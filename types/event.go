@@ -14,10 +14,10 @@ type Subscriber chan interface{}
 
 type EventCenter interface {
 
-	// subscriber subscribe specified eventType with eventFunc
+	// subscribe specified eventType with eventFunc
 	Subscribe(eventType EventType, eventFunc EventFunc) Subscriber
 
-	// subscriber unsubscribe specified eventType
+	// unsubscribe specified eventType and subscriber
 	UnSubscribe(eventType EventType, subscriber Subscriber) (err error)
 
 	// notify subscriber of eventType
@@ -29,8 +29,6 @@ type EventCenter interface {
 	// notify subscriber traversing all events
 	NotifyAll() (errs []error)
 
-	// unsubscrible all event
+	// unsubscribe all event
 	UnSubscribeAll()
 }
-
-var GlobalEventCenter EventCenter
