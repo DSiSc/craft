@@ -3,7 +3,6 @@ package log
 import (
 	"io"
 	"os"
-	"time"
 )
 
 // Appender is responsible for delivering LogEvents to their destination.
@@ -75,7 +74,7 @@ var globalConfig = &Config{
 	Enabled:         true,
 	Provider:        Zerolog,
 	GlobalLogLevel:  DebugLevel,
-	TimeStampFormat: time.RFC3339,
+	TimeStampFormat: "2006-01-02 15:04:05.999",
 	Appenders:       map[string]Appender{"stdout": *stdoutAppender},
 	OutputFlags:     globalOutputFlags,
 }
