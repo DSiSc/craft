@@ -18,4 +18,5 @@ type Logger interface {
 
 	SetGlobalLogLevel(level Level)
 	SetOutputFlags(flags *OutputFlags)
+	SetTimeFieldFormat(format string)
 }

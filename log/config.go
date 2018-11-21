@@ -7,11 +7,12 @@ import (
 
 // Appender is responsible for delivering LogEvents to their destination.
 type AppenderConfig struct {
-	LogLevel     Level
-	Output       string
-	Format       string
-	ShowCaller   bool
-	ShowHostname bool
+	LogLevel        Level
+	Output          string
+	Format          string
+	ShowCaller      bool
+	ShowHostname    bool
+	TimeFieldFormat string
 }
 
 // Appender is responsible for delivering LogEvents to their destination.
@@ -45,7 +46,7 @@ type Config struct {
 	Enabled         bool
 	Provider        Provider
 	GlobalLogLevel  Level
-	TimeStampFormat string
+	TimeFieldFormat string
 	Appenders       map[string]Appender
 	OutputFlags     *OutputFlags
 }
@@ -74,7 +75,7 @@ var globalConfig = &Config{
 	Enabled:         true,
 	Provider:        Zerolog,
 	GlobalLogLevel:  DebugLevel,
-	TimeStampFormat: "2006-01-02 15:04:05.999",
+	TimeFieldFormat: "2006-01-02 15:04:05.999",
 	Appenders:       map[string]Appender{"stdout": *stdoutAppender},
 	OutputFlags:     globalOutputFlags,
 }
