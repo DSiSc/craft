@@ -6,6 +6,7 @@ const (
 	EventBlockCommitted EventType = iota
 	EventBlockCommitFailed
 	EventBlockVerifyFailed
+	EventConsensusFailed
 )
 
 type EventFunc func(v interface{})
