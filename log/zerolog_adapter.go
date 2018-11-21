@@ -27,6 +27,10 @@ func (zl *zeroLogger) SetGlobalLogLevel(level Level) {
 	zerolog.SetGlobalLevel(parseLogLevel(level))
 }
 
+func (zl *zeroLogger) SetTimeFieldFormat(format string) {
+	zerolog.TimeFieldFormat = format
+}
+
 func (zl *zeroLogger) Debug(msg string) {
 	for _, l := range zl.loggers {
 		l.Debug().Msg(msg)
@@ -110,7 +114,7 @@ func buildZeroLogger(config *Config) Logger {
 
 	zerologger := &zeroLogger{make(map[string]*zerolog.Logger, len(config.Appenders))}
 
-	zerolog.TimeFieldFormat = config.TimeStampFormat
+	zerolog.TimeFieldFormat = config.TimeFieldFormat
 	zerolog.SetGlobalLevel(parseLogLevel(config.GlobalLogLevel))
 	zerologger.SetOutputFlags(config.OutputFlags)
 

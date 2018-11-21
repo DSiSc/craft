@@ -101,8 +101,8 @@ func SetOutputFlags(flags *OutputFlags) {
 }
 
 func SetTimestampFormat(format string) {
-	globalConfig.TimeStampFormat = format
-	globalConfig.buildLogger()
+	globalConfig.TimeFieldFormat = format
+	backendLogger.SetTimeFieldFormat(format)
 }
 
 // AddAppender adds/replaces a new logging destination.

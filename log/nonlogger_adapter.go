@@ -6,6 +6,8 @@ var _ Logger = (*nonLogger)(nil)
 // nonLogger is used when we disable logging.
 type nonLogger struct{}
 
+func (nonLogger) SetTimeFieldFormat(format string) {}
+
 func (nonLogger) SetOutputFlags(flags *OutputFlags) {}
 
 func (nonLogger) SetGlobalLogLevel(level Level) {}
