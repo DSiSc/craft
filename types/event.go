@@ -7,6 +7,10 @@ const (
 	EventBlockCommitFailed
 	EventBlockVerifyFailed
 	EventConsensusFailed
+	EventBlockWritten
+	EventBlockWriteFailed
+	EventTxVerifySucceeded
+	EventTxVerifyFailed
 )
 
 type EventFunc func(v interface{})
