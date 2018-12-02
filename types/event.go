@@ -11,6 +11,7 @@ const (
 	EventBlockWriteFailed
 	EventTxVerifySucceeded
 	EventTxVerifyFailed
+	EventMasterChange
 )
 
 type EventFunc func(v interface{})
