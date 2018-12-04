@@ -6,6 +6,7 @@ const (
 	EventBlockCommitted EventType = iota
 	EventBlockCommitFailed
 	EventBlockVerifyFailed
+	EventBlockExisted
 	EventConsensusFailed
 	EventBlockWritten
 	EventBlockWriteFailed
