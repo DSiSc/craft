@@ -13,6 +13,10 @@ const (
 	EventTxVerifySucceeded
 	EventTxVerifyFailed
 	EventMasterChange
+
+	//P2P Event
+	EventStopPeer
+	EventStartPeer
 )
 
 type EventFunc func(v interface{})
