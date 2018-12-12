@@ -18,7 +18,8 @@ const (
 	//P2P Event
 	EventRemovePeer
 	EventAddPeer
-	EventNewMsg
+	EventBroadCastMsg
+	EventRecvNewMsg
 )
 
 type EventFunc func(v interface{})
