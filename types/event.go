@@ -15,8 +15,9 @@ const (
 	EventMasterChange
 
 	//P2P Event
-	EventStopPeer
-	EventStartPeer
+	EventRemovePeer
+	EventAddPeer
+	EventNewMsg
 )
 
 type EventFunc func(v interface{})
