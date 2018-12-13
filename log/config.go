@@ -53,7 +53,7 @@ type Config struct {
 
 // stdoutAppender is a pre-configed console log.
 var stdoutAppender = &Appender{
-	LogLevel:     DebugLevel,
+	LogLevel:     ErrorLevel,
 	Output:       os.Stdout,
 	Format:       TextFmt,
 	ShowCaller:   true,
@@ -75,7 +75,7 @@ var globalConfig = &Config{
 	Enabled:         true,
 	Provider:        Zerolog,
 	GlobalLogLevel:  DebugLevel,
-	TimeFieldFormat: "2006-01-02 15:04:05.999",
+	TimeFieldFormat: "2006-01-02 15:04:05.000",
 	Appenders:       map[string]Appender{"stdout": *stdoutAppender},
 	OutputFlags:     globalOutputFlags,
 }
