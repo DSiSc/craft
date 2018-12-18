@@ -12,36 +12,50 @@ import (
 
 var JTMetrics *Metrics
 
+// PromMetrics contains metrics exposed by Consensus.
+type Metrics struct {
+	ApigatewayReceivedTx metrics.Counter
+	SwitchTakenTx        metrics.Counter
+	TxpoolIngressTx      metrics.Counter
+	TxpoolPooledTx       metrics.Counter
+	TxpoolDiscardedTx    metrics.Counter
+	TxpoolDuplacatedTx   metrics.Counter
+	TxpoolOutgoingTx     metrics.Counter
+	BlockHeight          metrics.Gauge
+	BlockTxNum           metrics.Gauge
+	CommittedTx          metrics.Counter
+}
+
 func init() {
 	// NopConsensusMetrics returns no-op Metrics.
 	// Used by default.
 	JTMetrics = &Metrics{
-		TxpoolIngressTx:    discard.NewCounter(),
-		TxpoolPooledTx:     discard.NewCounter(),
-		TxpoolDiscardedTx:  discard.NewCounter(),
-		TxpoolDuplacatedTx: discard.NewCounter(),
-		TxpoolOutgoingTx:   discard.NewCounter(),
-		BlockHeight:        discard.NewGauge(),
-		BlockTxNum:         discard.NewGauge(),
-		CommittedTx:        discard.NewCounter(),
+		ApigatewayReceivedTx: discard.NewCounter(),
+		SwitchTakenTx:        discard.NewCounter(),
+		TxpoolIngressTx:      discard.NewCounter(),
+		TxpoolPooledTx:       discard.NewCounter(),
+		TxpoolDiscardedTx:    discard.NewCounter(),
+		TxpoolDuplacatedTx:   discard.NewCounter(),
+		TxpoolOutgoingTx:     discard.NewCounter(),
+		BlockHeight:          discard.NewGauge(),
+		BlockTxNum:           discard.NewGauge(),
+		CommittedTx:          discard.NewCounter(),
 	}
-}
-
-// PromMetrics contains metrics exposed by Consensus.
-type Metrics struct {
-	TxpoolIngressTx    metrics.Counter
-	TxpoolPooledTx     metrics.Counter
-	TxpoolDiscardedTx  metrics.Counter
-	TxpoolDuplacatedTx metrics.Counter
-	TxpoolOutgoingTx   metrics.Counter
-	BlockHeight        metrics.Gauge
-	BlockTxNum         metrics.Gauge
-	CommittedTx        metrics.Counter
 }
 
 // createJTMetrics creates Metrics build using Prometheus client library.
 func createMetrics() {
 	JTMetrics = &Metrics{
+		ApigatewayReceivedTx: kitprometheus.NewCounterFrom(prometheus.CounterOpts{
+			Subsystem: "apigateway",
+			Name:      "received_tx",
+			Help:      "Accumulated num of tx received by apigateway.",
+		}, []string{}),
+		SwitchTakenTx: kitprometheus.NewCounterFrom(prometheus.CounterOpts{
+			Subsystem: "gossipswitch",
+			Name:      "taken_tx",
+			Help:      "Accumulated num of tx taken by gossipswitch.",
+		}, []string{}),
 		TxpoolIngressTx: kitprometheus.NewCounterFrom(prometheus.CounterOpts{
 			Subsystem: "txpool",
 			Name:      "ingress_tx",
@@ -83,4 +97,14 @@ func createMetrics() {
 			Help:      "Accumulated num of committed tx.",
 		}, []string{}),
 	}
+	JTMetrics.ApigatewayReceivedTx.Add(0)
+	JTMetrics.SwitchTakenTx.Add(0)
+	JTMetrics.TxpoolIngressTx.Add(0)
+	JTMetrics.TxpoolPooledTx.Add(0)
+	JTMetrics.TxpoolDuplacatedTx.Add(0)
+	JTMetrics.TxpoolDiscardedTx.Add(0)
+	JTMetrics.TxpoolOutgoingTx.Add(0)
+	JTMetrics.BlockHeight.Add(0)
+	JTMetrics.BlockTxNum.Add(0)
+	JTMetrics.CommittedTx.Add(0)
 }
