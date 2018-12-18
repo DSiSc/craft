@@ -37,7 +37,7 @@ type Config struct {
 	Provider        Provider
 	GlobalLogLevel  Level
 	TimeFieldFormat string
-	Appenders       map[string]Appender
+	Appenders       map[string]*Appender
 	OutputFlags     *OutputFlags
 }
 
@@ -66,7 +66,7 @@ var globalConfig = &Config{
 	Provider:        Zerolog,
 	GlobalLogLevel:  DebugLevel,
 	TimeFieldFormat: "2006-01-02 15:04:05.000",
-	Appenders:       map[string]Appender{"stdout": *stdoutAppender},
+	Appenders:       map[string]*Appender{"stdout": stdoutAppender},
 	OutputFlags:     globalOutputFlags,
 }
 
