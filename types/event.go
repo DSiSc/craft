@@ -3,16 +3,17 @@ package types
 type EventType uint8
 
 const (
-	EventBlockCommitted EventType = iota
-	EventBlockCommitFailed
-	EventBlockVerifyFailed
-	EventBlockExisted
-	EventConsensusFailed
-	EventBlockWritten
-	EventBlockWriteFailed
-	EventTxVerifySucceeded
-	EventTxVerifyFailed
-	EventMasterChange
+	EventBlockCommitted    EventType = iota // 0, block submit successfully
+	EventBlockCommitFailed                  // 1, block submit failed
+	EventBlockVerifyFailed                  // 2, block verified failed
+	EventBlockExisted                       // 3. block has exist
+	EventConsensusFailed                    // 4. to consensus failed
+	EventBlockWritten                       // 5. block has been written
+	EventBlockWriteFailed                   // 6. block write failed
+	EventTxVerifySucceeded                  // 7. tx has been verified successfully
+	EventTxVerifyFailed                     // 8. tx was verified failed
+	EventMasterChange                       // 9. change master
+	EventOnline                             // 10. node online
 
 	//P2P Event
 	EventRemovePeer
