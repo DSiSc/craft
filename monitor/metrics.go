@@ -21,6 +21,8 @@ type Metrics struct {
 	TxpoolDiscardedTx    metrics.Counter
 	TxpoolDuplacatedTx   metrics.Counter
 	TxpoolOutgoingTx     metrics.Counter
+	ConsensusPeerId      metrics.Gauge
+	ConsensusMasterId    metrics.Gauge
 	BlockHeight          metrics.Gauge
 	BlockTxNum           metrics.Gauge
 	CommittedTx          metrics.Counter
@@ -37,6 +39,8 @@ func init() {
 		TxpoolDiscardedTx:    discard.NewCounter(),
 		TxpoolDuplacatedTx:   discard.NewCounter(),
 		TxpoolOutgoingTx:     discard.NewCounter(),
+		ConsensusPeerId:      discard.NewGauge(),
+		ConsensusMasterId:    discard.NewGauge(),
 		BlockHeight:          discard.NewGauge(),
 		BlockTxNum:           discard.NewGauge(),
 		CommittedTx:          discard.NewCounter(),
@@ -81,6 +85,16 @@ func createMetrics() {
 			Name:      "outgoing_tx",
 			Help:      "Accumulated num of tx out from txpool.",
 		}, []string{}),
+		ConsensusPeerId: kitprometheus.NewGaugeFrom(prometheus.GaugeOpts{
+			Subsystem: "consensus",
+			Name:      "peer_id",
+			Help:      "Peer ID.",
+		}, []string{}),
+		ConsensusMasterId: kitprometheus.NewGaugeFrom(prometheus.GaugeOpts{
+			Subsystem: "consensus",
+			Name:      "master_id",
+			Help:      "Peer ID of current master.",
+		}, []string{}),
 		BlockHeight: kitprometheus.NewGaugeFrom(prometheus.GaugeOpts{
 			Subsystem: "store",
 			Name:      "height",
@@ -107,4 +121,6 @@ func createMetrics() {
 	JTMetrics.BlockHeight.Add(0)
 	JTMetrics.BlockTxNum.Add(0)
 	JTMetrics.CommittedTx.Add(0)
+	JTMetrics.ConsensusPeerId.Set(0)
+	JTMetrics.ConsensusMasterId.Set(0)
 }
