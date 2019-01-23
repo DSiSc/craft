@@ -7,7 +7,10 @@ import (
 
 // Appender is responsible for delivering LogEvents to their destination.
 type Appender struct {
+	Enabled      bool
 	LogLevel     Level
+	LogType      string
+	LogPath      string
 	Output       io.Writer
 	Format       string
 	ShowCaller   bool
@@ -116,4 +119,12 @@ const (
 	JsonFmt string = "JSON"
 	// TextFmt indicates that log output generated in form of TEXT.
 	TextFmt string = "TEXT"
+	// ConsoleLog indicates that log output to console.
+	ConsoleLog string = "CONSOLE_LOG"
+	// FileLog indicates that log output to console.
+	FileLog string = "FILE_LOG"
+	// ConsoleStdout indicates than console log output to os.Stdout
+	ConsoleStdout string = "STDOUT"
+	// ConsoleStderr indicates than console log output to os.Stderr
+	ConsoleStderr string = "STDERR"
 )

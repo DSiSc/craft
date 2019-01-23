@@ -119,6 +119,9 @@ func buildZeroLogger(config *Config) Logger {
 	zerologger.SetOutputFlags(config.OutputFlags)
 
 	for s, a := range config.Appenders {
+		if !a.Enabled {
+			continue
+		}
 		var logger zerolog.Logger
 		context := zerolog.New(a.Output).Level(parseLogLevel(a.LogLevel)).With().Timestamp()
 		if a.ShowCaller {
