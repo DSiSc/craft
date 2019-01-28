@@ -14,6 +14,7 @@ const (
 	EventTxVerifyFailed                     // 8. tx was verified failed
 	EventMasterChange                       // 9. change master
 	EventOnline                             // 10. node online
+	EventBlockWithoutTxs                    // 11. block without any txs
 
 	//P2P Event
 	EventRemovePeer
