@@ -21,6 +21,9 @@ const (
 	EventAddPeer
 	EventBroadCastMsg
 	EventRecvNewMsg
+
+	// txpool events
+	EventAddTxToTxPool
 )
 
 type EventFunc func(v interface{})
