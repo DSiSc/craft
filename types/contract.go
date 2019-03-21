@@ -9,15 +9,20 @@ const (
 	JustitiaMetaData   = "MetaData"
 )
 
-type ContractType uint8
+type ContractType int
 
 const (
-	ContractInitialType       ContractType = iota
-	ContractJustitiaRight
-	ContractVote
-	ContractWhiteList
-	ContractMetaData
-	ConTractMaximumType
+	InitialContractType ContractType = iota
+	JustitiaRightContractType
+	VoteContractType
+	WhiteListContractType
+	MetaDataContractType
+	MaximumContractType
 )
 
-const MetaDataContractAddress = "0x8be503bcded90ed42eff31f56199399b2b0154ca"
+const (
+	MetaDataContractAddress             = "8be503bcded90ed42eff31f56199399b2b0154ca"
+	JustiitaContractDefaultAddress      = "bd770416a3345f91e4b34576cb804a576fa48eb1"
+	VotingContractDefaultAddress        = "5a443704dd4b594b382c22a083e2bd3090a6fef3"
+	WhiteListContractTypeDefaultAddress = "47e9fbef8c83a1714f1951f142132e6e90f5fa5d"
+)
