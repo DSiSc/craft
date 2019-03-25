@@ -21,6 +21,7 @@ const (
 )
 
 const (
+	MinimunNodesForDpos                 = uint64(4)
 	MetaDataContractAddress             = "8be503bcded90ed42eff31f56199399b2b0154ca"
 	JustiitaContractDefaultAddress      = "bd770416a3345f91e4b34576cb804a576fa48eb1"
 	VotingContractDefaultAddress        = "5a443704dd4b594b382c22a083e2bd3090a6fef3"
