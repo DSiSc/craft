@@ -108,6 +108,7 @@ func SetTimestampFormat(format string) {
 // AddAppender adds/replaces a new logging destination.
 func AddAppender(appenderName string, output io.Writer, logLevel Level, format string, showCaller bool, showHostname bool) {
 	globalConfig.Appenders[appenderName] = &Appender{
+		Enabled:      true,
 		LogLevel:     logLevel,
 		Output:       output,
 		Format:       format,
