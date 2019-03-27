@@ -46,7 +46,10 @@ type Config struct {
 
 // stdoutAppender is a pre-configed console log.
 var stdoutAppender = &Appender{
-	LogLevel:     ErrorLevel,
+	Enabled:      true,
+	LogLevel:     InfoLevel,
+	LogType:      ConsoleLog,
+	LogPath:      ConsoleStdout,
 	Output:       os.Stdout,
 	Format:       TextFmt,
 	ShowCaller:   true,
