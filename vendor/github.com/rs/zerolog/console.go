@@ -69,7 +69,7 @@ func (w ConsoleWriter) Write(p []byte) (n int, err error) {
 		}
 	}
 	fmt.Fprintf(buf, "%s |%s| %s",
-		colorize(formatTime(event[TimestampFieldName]), cDarkGray, !w.NoColor),
+		colorize(formatTime(event[TimestampFieldName]), cGray, !w.NoColor),
 		colorize(level, lvlColor, !w.NoColor),
 		colorize(event[MessageFieldName], cReset, !w.NoColor))
 	fields := make([]string, 0, len(event))
