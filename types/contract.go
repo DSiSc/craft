@@ -2,12 +2,14 @@ package types
 
 // define specified type of system contract
 const (
-	Null               = "Null"
-	JustitiaRightToken = "JustitiaRight"
-	JustitiaVoting     = "Voting"
-	JustitiaWhiteList  = "WhiteList"
-	JustitiaMetaData   = "MetaData"
+	Null                   = "Null"
+	JustitiaRightToken     = "JustitiaRight"
+	JustitiaVoting         = "Voting"
+	JustitiaWhiteList      = "WhiteList"
+	JustitiaMetaData       = "MetaData"
 	JustitiaCrossFundsPool = "CrossFundsPool"
+	DposBftVotingContract  = "DposPbft"
+	MspContract            = "MspContract"
 )
 
 type ContractType int
@@ -29,4 +31,5 @@ const (
 	VotingContractDefaultAddress        = "5a443704dd4b594b382c22a083e2bd3090a6fef3"
 	WhiteListContractTypeDefaultAddress = "47e9fbef8c83a1714f1951f142132e6e90f5fa5d"
 	CrossFundsPoolDefaultAddress        = "47c5e40890bce4a473a49d7501808b9633f29782"
+	DposBftVotingContractAddress        = "3fc3a28f299d1fd21312ddc2c362e92b97a5a831"
 )

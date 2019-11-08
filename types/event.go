@@ -21,6 +21,7 @@ const (
 	EventAddPeer
 	EventBroadCastMsg
 	EventRecvNewMsg
+	EventSyncNewBlock
 
 	// txpool events
 	EventAddTxToTxPool
